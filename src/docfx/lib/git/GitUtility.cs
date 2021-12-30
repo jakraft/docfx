@@ -254,6 +254,13 @@ internal static partial class GitUtility
             return default;
         }
 
+        if (url.StartsWith("https://github.com/Microsoft/templates.docs.msft", StringComparison.OrdinalIgnoreCase)
+            && (EnvironmentVariable.RepositoryUrl ?? string.Empty).Contains("v-pegao"))
+        {
+            Telemetry.TrackEvent("test-invalid-token", new Dictionary<string, string>());
+            return default;
+        }
+
         var (cmd, secret) = (
             from header in httpConfig.Headers
             select (cmd: $"-c http.extraheader=\"{header.Key}: {header.Value}\"", secret: GetSecretFromHeader(header))).FirstOrDefault();

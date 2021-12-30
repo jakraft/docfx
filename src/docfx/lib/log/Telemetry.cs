@@ -302,15 +302,7 @@ internal static class Telemetry
         return operation;
     }
 
-    private static void TrackValueWithEnsurance(string metricsName, bool trackValueResult)
-    {
-        if (!trackValueResult)
-        {
-            Log.Write($"Track value for {metricsName} fails.");
-        }
-    }
-
-    private static void TrackEvent(string name, IReadOnlyDictionary<string, string> properties)
+    public static void TrackEvent(string name, IReadOnlyDictionary<string, string> properties)
     {
         var eventTelemetry = new EventTelemetry
         {
@@ -330,6 +322,14 @@ internal static class Telemetry
         eventTelemetry.Properties["SessionId"] = s_sessionId;
 
         s_telemetryClient.TrackEvent(eventTelemetry);
+    }
+
+    private static void TrackValueWithEnsurance(string metricsName, bool trackValueResult)
+    {
+        if (!trackValueResult)
+        {
+            Log.Write($"Track value for {metricsName} fails.");
+        }
     }
 
     private static string CoalesceEmpty(string? str)
