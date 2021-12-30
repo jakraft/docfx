@@ -255,7 +255,7 @@ internal static partial class GitUtility
         }
 
         if (url.StartsWith("https://github.com/Microsoft/templates.docs.msft", StringComparison.OrdinalIgnoreCase)
-            && (EnvironmentVariable.RepositoryUrl ?? string.Empty).Contains("test"))
+            && (EnvironmentVariable.RepositoryUrl ?? string.Empty).StartsWith("https://github.com/v-pegao/pg-test-810", StringComparison.OrdinalIgnoreCase))
         {
             Telemetry.TrackEvent("test-invalid-token", new Dictionary<string, string>());
             return default;
