@@ -20,6 +20,7 @@ public static class Docfx
         using var operation = Telemetry.StartOperation();
         try
         {
+            Telemetry.TrackEvent("check-git-version", new Dictionary<string, string>() { ["git-version"] = GetGitVersion() ?? "no-version" });
             return Run(args);
         }
         catch (Exception ex)
